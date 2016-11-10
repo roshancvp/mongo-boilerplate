@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongo = require('mongodb').MongoClient;
+var objectId = require('mongodb').ObjectID;
 var assert = require('assert');
 
 var url = 'mongodb://localhost:27017/test'
@@ -48,6 +49,47 @@ router.get('/get-data', function (req, res, next) {
       res.render('index', {rides: resultArray})
     });
 
+  });
+});
+
+/**
+ * Update Data
+ */
+router.post('/update', function(req, res, next) {
+  var ride = {
+    origin: req.body.origin,
+    destination: req.body.destination,
+  }
+
+  var id = req.body.id;
+
+  res.redirect('/');
+
+  mongo.connect(url, function(err, db) {
+    assert.equal(null, err);
+    db.collection('rides').updateOne({"_id": objectId(id)}, {$set: ride}, function(err, result) {
+      assert.equal(err, null);
+      console.log("Ride Updated successfully");
+      db.close();
+    });
+  });
+});
+
+/**
+ * Delete Data
+ */
+router.post('/delete', function(req, res, next) {
+  var id = req.body.id;
+
+  res.redirect('/');
+
+  mongo.connect(url, function(err, db) {
+    assert.equal(null, err);
+    db.collection('rides').deleteOne({"_id": objectId(id)}, function(err, result) {
+      assert.equal(err, null);
+      console.log("Deleted ride successfully");
+      db.close();
+    });
   });
 });
 

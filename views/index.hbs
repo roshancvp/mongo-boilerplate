@@ -19,5 +19,21 @@
 </form>
 
 {{#each rides}}
+  ID: {{this._id}}<br>
   {{this.origin}} --> {{this.destination}} <br>
+  <br>
 {{/each}}
+
+<h2>Update</h2>
+<form action="update" method="post">
+  ID: <input type="text" name="id"><br>
+  Origin: <input type="text" name="origin"><br>
+  Destination:  <input type="text" name="destination">
+  <button type="submit"> Submit </button>
+</form>
+
+<h2>Delete</h2>
+<form action="delete" method="post">
+  ID: <input type="text" name="id">
+  <button type="submit"> Submit </button>
+</form>
