@@ -1,5 +1,23 @@
 <h1>{{ title }}</h1>
+
+<h2> Post request + Redirect </h2>
 <form action="test/submit" method="post">
   <input type="text" name="id">
   <button type="submit">Submit</button>
 </form>
+
+<h2>Post</h2>
+<form action="insert" method="post">
+  Origin: <input type="text" name="origin"><br>
+  Destination:  <input type="text" name="destination">
+  <button type="submit"> Submit </button>
+</form>
+
+<h2>Past Posts</h2>
+<form action="get-data" method="get">
+  <button type="submit"> Get Data </button>
+</form>
+
+{{#each rides}}
+  {{this.origin}} --> {{this.destination}} <br>
+{{/each}}
